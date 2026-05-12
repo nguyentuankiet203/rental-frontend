@@ -1,4 +1,6 @@
 import RoleGuard from "@/components/auth/RoleGuard";
+import { persist } from "zustand/middleware";
+import Link from "next/link";
 import {
   Users,
   Building2,
@@ -51,7 +53,7 @@ const quickLinks = [
   {
     label: "Thống kê hệ thống",
     desc: "Báo cáo doanh thu và hoạt động",
-    href: "/admin/analytics",
+    href: "/admin/users",
     icon: TrendingUp,
     color: "text-green-600",
     bg: "bg-green-50",
@@ -105,7 +107,7 @@ export default function AdminPage() {
             {quickLinks.map((link, i) => {
               const Icon = link.icon;
               return (
-                <a
+                <Link
                   key={i}
                   href={link.href}
                   className="flex items-center gap-4 bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group"
@@ -119,7 +121,7 @@ export default function AdminPage() {
                     </p>
                     <p className="text-xs text-gray-500 mt-0.5">{link.desc}</p>
                   </div>
-                </a>
+                </Link>
               );
             })}
           </div>
@@ -138,13 +140,13 @@ export default function AdminPage() {
               </p>
             </div>
           </div>
-          <a
+          <Link
             href="/admin/users"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-blue-600 text-sm font-semibold hover:bg-blue-50 transition-colors self-start sm:self-auto flex-shrink-0"
           >
             <Users size={15} />
             Quản lý người dùng
-          </a>
+          </Link>
         </div>
       </div>
     </RoleGuard>

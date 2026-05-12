@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import { jwtDecode } from "jwt-decode";
 
 interface AuthState {
@@ -9,26 +10,40 @@ interface AuthState {
   logout: () => void;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
-  user: null,
-  token: null,
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      user: null,
+      token: null,
 
-  setAuth: (user, token) => {
-    localStorage.setItem("token", token);
-    set({ user, token });
-  },
+      setAuth: (user, token) => {
+        set({ user, token });
+      },
 
-  loadUser: () => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
+      loadUser: () => {
+        const token = localStorage.getItem("token");
 
-    const decoded: any = jwtDecode(token);
-    set({ user: decoded, token });
-  },
+        if (!token) return;
 
-  logout: () => {
-    localStorage.removeItem("token");
-    set({ user: null, token: null });
-  },
+        const decoded: any = jwtDecode(token);
 
-}));
+        set({
+          user: decoded,
+          token,
+        });
+      },
+
+      logout: () => {
+        localStorage.removeItem("token");
+
+        set({
+          user: null,
+          token: null,
+        });
+      },
+    }),
+    {
+      name: "auth-storage",
+    }
+  )
+);

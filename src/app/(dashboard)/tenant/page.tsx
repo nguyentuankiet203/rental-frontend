@@ -17,7 +17,7 @@ const quickLinks = [
   {
     label: "Hợp đồng của tôi",
     desc: "Xem thông tin hợp đồng thuê phòng",
-    href: "/tenant/contracts",
+    href: "/tenant/contract",
     icon: FileText,
     color: "text-blue-600",
     bg: "bg-blue-50",
@@ -25,9 +25,9 @@ const quickLinks = [
   {
     label: "Hóa đơn",
     desc: "Xem và thanh toán hóa đơn hàng tháng",
-    href: "/tenant/invoices",
+    href: "/tenant/invoice",
     icon: Receipt,
-    color: "text-green-600",
+    color: "text-green-60",
     bg: "bg-green-50",
   },
   {

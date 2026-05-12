@@ -37,6 +37,8 @@ const menuConfig: Record<Role, MenuItem[]> = {
   TENANT: [
     { label: "Dashboard", href: "/tenant", icon: LayoutDashboard },
     { label: "Hóa đơn", href: "/tenant/invoice", icon: Receipt },
+    { label: "Hợp đồng", href: "/tenant/contract", icon: Receipt },
+    { label: "Thông tin phòng", href: "/tenant/room", icon: Receipt },
   ],
 };
 

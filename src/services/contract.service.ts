@@ -19,3 +19,16 @@ export const getContracts = async (params: any) => {
   const res = await api.get("/contracts", { params });
   return res.data;
 };
+
+export const getMyContracts = async (
+  params?: any
+) => {
+  const res = await api.get(
+    "/contracts/my",
+    {
+      params,
+    }
+  );
+
+  return res.data;
+};
