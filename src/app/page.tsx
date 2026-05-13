@@ -290,7 +290,7 @@ export default function LandingPage() {
           </p>
 
           <Link
-            href="/login"
+            href="/register"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-white text-slate-900 font-bold hover:scale-105 transition-all shadow-xl"
           >
             Bắt đầu ngay hôm nay
