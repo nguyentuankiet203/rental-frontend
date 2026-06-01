@@ -20,6 +20,11 @@ export const getContracts = async (params: any) => {
   return res.data;
 };
 
+export const getContractById = async (id: number) => {
+  const res = await api.get(`/contracts/${id}`);
+  return res.data;
+};
+
 export const getMyContracts = async (
   params?: any
 ) => {
@@ -32,3 +37,16 @@ export const getMyContracts = async (
 
   return res.data;
 };
+
+export const updateContract = async (
+  id: number,
+  payload: any
+) => {
+  const res = await api.patch(
+    `/contracts/${id}`,
+    payload
+  );
+
+  return res.data;
+};
+
