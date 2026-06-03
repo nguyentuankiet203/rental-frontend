@@ -11,13 +11,21 @@ import {
   markAsRead,
 } from "@/services/notification.service";
 
+interface Notification {
+  id: number;
+  title: string;
+  message: string;
+  isRead: boolean;
+  createdAt: string;
+}
 export default function NotificationBell() {
   const { user } = useAuthStore();
-  const [notifications, setNotifications] = useState<any[]>([]);
+  // const [notifications, setNotifications] = useState<any[]>([]);
   const [unread, setUnread] = useState(0);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const ref = useRef<HTMLDivElement>(null);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
 
   // Đóng khi click ngoài
   useEffect(() => {
@@ -39,6 +47,7 @@ export default function NotificationBell() {
     socket.on("notification", (data) => {
       if (!data?.id) return;
       setNotifications((prev) => [{ ...data, isRead: false }, ...prev]);
+      
       setUnread((prev) => prev + 1);
       toast.success(data.title);
     });
@@ -57,6 +66,18 @@ export default function NotificationBell() {
             isRead: n.isRead ?? n.is_read ?? false,
             createdAt: n.createdAt ?? n.created_at,
           }))
+          .sort((a: Notification, b: Notification) => {
+            // Chưa đọc lên trước
+            if (a.isRead !== b.isRead) {
+              return a.isRead ? 1 : -1;
+            }
+
+            // Cùng trạng thái thì mới nhất lên trước
+            return (
+              new Date(b.createdAt).getTime() -
+              new Date(a.createdAt).getTime()
+            );
+          })
         );
         setUnread(count);
       } finally {
